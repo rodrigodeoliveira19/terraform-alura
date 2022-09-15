@@ -8,7 +8,13 @@ https://www.terraform.io/language/resources
 */
 #key_name foi gerada com o ssh e importada no ec2 da aws
 resource "aws_instance" "dev" {
+  count = 3 //Qtd de maquinas
   ami = "ami-052efd3df9dad4825"
   instance_type = "t2.micro"
   key_name = "terraform-aws-2"
+
+  #https://learn.hashicorp.com/tutorials/terraform/aws-default-tags
+  tags = {
+    "Name" = "dev-${count.index}"
+  }
 }
